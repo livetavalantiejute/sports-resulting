@@ -5,6 +5,7 @@ export const teamsSlice = createSlice({
   initialState: {
     count: 0,
     teams: [],
+    pairings: [],
   },
   reducers: {
     addTeam: (state, action) => {
@@ -24,6 +25,21 @@ export const teamsSlice = createSlice({
       if (!existingTeam) {
         state.teams.push(newTeam);
         state.count += 1;
+
+        for (let j = 0; j < state.count; j++) {
+          if (j !== state.teams.indexOf(newTeam)) {
+            const pairing = {
+              player1: state.teams[j],
+              player2: newTeam,
+            };
+            const existingPairing = state.pairings.find((team) => {
+              return JSON.stringify(team) === JSON.stringify(pairing);
+            });
+            if (!existingPairing) {
+              state.pairings.push(pairing);
+            }
+          }
+        }
       } else {
         alert(warning);
       }

@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+
 function TeamsTable() {
   const teams = useSelector((state) => {
     return state.teams.teams;
