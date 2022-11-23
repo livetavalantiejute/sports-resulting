@@ -31,6 +31,7 @@ export const teamsSlice = createSlice({
             const pairing = {
               player1: state.teams[j],
               player2: newTeam,
+              score: [0, 0]
             };
             const existingPairing = state.pairings.find((team) => {
               return JSON.stringify(team) === JSON.stringify(pairing);
@@ -44,6 +45,9 @@ export const teamsSlice = createSlice({
         alert(warning);
       }
     },
+    addScore: {
+        
+    }
   },
 });
 

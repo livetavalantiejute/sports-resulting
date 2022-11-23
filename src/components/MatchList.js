@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
 
+import Match from './Match'
+
 function MatchList() {
   const teamPairings = useSelector((state) => {
     return state.teams.pairings;
@@ -8,7 +10,7 @@ function MatchList() {
   return (
     <ul>
       {teamPairings.map((pairing) => (
-        <li>{pairing.player1.name} - {pairing.player2.name}</li>
+        <Match pairing={pairing}/>
       ))}
     </ul>
   );
