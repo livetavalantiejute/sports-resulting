@@ -1,4 +1,9 @@
+import { useSelector } from "react-redux";
 function TeamsTable() {
+  const teams = useSelector((state) => {
+    return state.teams;
+  });
+
   return (
     <table>
       <thead>
@@ -12,7 +17,13 @@ function TeamsTable() {
           <th>Points</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        {teams.map((team) => (
+          <tr key={team.id} id={team.id}>
+            <td>{team.name}</td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 }
