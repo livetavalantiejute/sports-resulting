@@ -11,6 +11,7 @@ function NewTeam() {
     event.preventDefault();
 
     if (value.trim().length === 0) {
+      alert("Please input a name");
       setValue("");
       return;
     }
@@ -26,7 +27,11 @@ function NewTeam() {
 
   return (
     <form onSubmit={onSubmit}>
-      <input placeholder="New team" onChange={(event) => setValue(event.target.value)} value={value}/>
+      <input
+        placeholder="New team"
+        onChange={(event) => setValue(event.target.value)}
+        value={value}
+      />
       <button type="submit">Add</button>
     </form>
   );

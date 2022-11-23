@@ -2,21 +2,30 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const teamsSlice = createSlice({
   name: "teams",
-  initialState: [],
+  initialState: {
+    count: 0,
+    teams: [],
+  },
   reducers: {
     addTeam: (state, action) => {
       const newTeam = {
-        id: state.length + 1,
+        id: state.count,
         name: action.payload.team,
+        played: 0,
+        won: 0,
+        lost: 0,
+        draw: 0,
+        points: 0,
       };
-      const warning = "The team currently exists"
-      const existingTeam = state.find((team) => {
-        return team.name.toLowerCase() === newTeam.name.toLowerCase()
-      })
+      const warning = "The team currently exists";
+      const existingTeam = state.teams.find((team) => {
+        return team.name.toLowerCase() === newTeam.name.toLowerCase();
+      });
       if (!existingTeam) {
-        state.push(newTeam)
+        state.teams.push(newTeam);
+        state.count += 1;
       } else {
-        alert(warning)
+        alert(warning);
       }
     },
   },
