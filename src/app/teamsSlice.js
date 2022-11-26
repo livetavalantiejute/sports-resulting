@@ -2,13 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const teamsSlice = createSlice({
   name: "teams",
+  //Initially, there are no teams and no pairings
   initialState: {
     count: 0,
     teams: [],
     pairings: [],
   },
   reducers: {
+    //ADD TEAM
     addTeam: (state, action) => {
+      //declare New team with no games
       const newTeam = {
         id: state.count,
         name: action.payload.team,
@@ -18,39 +21,102 @@ export const teamsSlice = createSlice({
         draw: 0,
         points: 0,
       };
-      const warning = "The team currently exists";
+      //Compare declared new team name with existing teams
       const existingTeam = state.teams.find((team) => {
-        return team.name.toLowerCase() === newTeam.name.toLowerCase();
+        return (
+          team.name.toLowerCase().trim() === newTeam.name.toLowerCase().trim()
+        );
       });
+      const warningTeamName = "The team currently exists";
+      //If new team name does not exist, add new team and increase the count
       if (!existingTeam) {
         state.teams.push(newTeam);
         state.count += 1;
 
+        // ADD PAIRINGS
+        // Loop through all teams
         for (let j = 0; j < state.count; j++) {
+          //Exclude new team from the loop / if only one team is added, no pairings are made
           if (j !== state.teams.indexOf(newTeam)) {
-            const pairing = {
-              player1: state.teams[j],
-              player2: newTeam,
-              score: [0, 0]
+            //Declare new pairing of every team with new team
+            const newPairing = {
+              id: "pairing" + state.pairings.length, //id from 0 to count of pairings
+              players: [
+                {
+                  player: state.teams[j],
+                  score: 0,
+                },
+                { player: newTeam, score: 0 },
+              ],
             };
-            const existingPairing = state.pairings.find((team) => {
-              return JSON.stringify(team) === JSON.stringify(pairing);
-            });
-            if (!existingPairing) {
-              state.pairings.push(pairing);
-            }
+
+            state.pairings.push(newPairing);
           }
         }
       } else {
-        alert(warning);
+        //If new team name exists, throw alert
+        alert(warningTeamName);
       }
     },
-    addScore: {
-        
-    }
+    //ADD SCORE
+    addScore: (state, action) => {
+      //Declare pairing with input scores
+      const pairing = {
+        id: action.payload.id,
+        players: [
+          { player: action.payload.player1, score: action.payload.scoreFirst },
+          { player: action.payload.player2, score: action.payload.scoreSecond },
+        ],
+      };
+
+      //Find played teams
+      const playedTeams = state.teams.filter((team) => {
+        return pairing.players.some((playerTeam) => {
+          team["scoreTemp"] = playerTeam.score;           //add temporary key for score, used only for current pairing, resets for every pairing
+          return playerTeam.player.id === team.id;
+        });
+      });
+
+      //FINDING MAX SCORE
+      const scores = [];
+      playedTeams.forEach((team) => {
+        scores.push(team.scoreTemp);
+
+        //No matter the outcome (win/loss), the team's played count increases
+        team.played += 1;
+      });
+
+      const maxScore = Math.max(...scores);
+
+      //Find team(s) with max score
+      const teamMaxScore = playedTeams.filter((team) => {
+        return team.scoreTemp === maxScore;
+      });
+
+      //If teams with max score count is more than 1, it's a draw
+      if (teamMaxScore.length > 1) {
+        teamMaxScore.forEach((team) => {
+          team.draw += 1;
+          team.points += 1;
+        });
+      //If teams with max score count is 1, team with max score is winner  
+      } else if (teamMaxScore.length === 1) {
+        playedTeams.forEach((team) => {
+          if (team.id === teamMaxScore[0].id) {
+            teamMaxScore[0].won += 1;
+            teamMaxScore[0].points += 3;
+          } else {
+            team.lost += 1;
+          }
+        });
+      //Backup, incase something goes wrong, e.g. there are nulls in score
+      } else {
+        alert("Something went wrong");
+      }
+    },
   },
 });
 
-export const { addTeam } = teamsSlice.actions;
+export const { addTeam, addScore } = teamsSlice.actions;
 
 export default teamsSlice.reducer;

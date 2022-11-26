@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addScore } from "../app/teamsSlice";
 
 function Match(props) {
+  const dispatch = useDispatch();
+
   const [score, setScore] = useState({
     first: 0,
     second: 0,
@@ -16,13 +20,24 @@ function Match(props) {
 
   const onSubmit = (event) => {
     event.preventDefault();
+
     setSubmitted(true);
+
+    dispatch(
+      addScore({
+        scoreFirst: parseInt(score.first),
+        scoreSecond: parseInt(score.second),
+        id: props.pairing.id,
+        player1: props.pairing.players[0].player,
+        player2: props.pairing.players[1].player
+      })
+    );
   };
 
   return (
     <li>
       <form onSubmit={onSubmit}>
-        {props.pairing.player1.name}
+        {props.pairing.players[0].player.name}
         {!submitted && (
           <input
             type="number"
@@ -41,7 +56,7 @@ function Match(props) {
             onChange={handleChange}
           />
         )}
-        {props.pairing.player2.name}
+        {props.pairing.players[1].player.name}
         {!submitted && <button type="submit">Submit score</button>}
       </form>
     </li>

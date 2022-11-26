@@ -10,7 +10,7 @@ function MatchList() {
   return (
     <ul>
       {teamPairings.map((pairing) => (
-        <Match pairing={pairing}/>
+        <Match pairing={pairing} key={pairing.id}/>
       ))}
     </ul>
   );
