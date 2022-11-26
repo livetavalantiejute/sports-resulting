@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 
-import Match from './Match'
+import Match from "./Match";
+
+import styles from "./MatchList.module.css";
 
 function MatchList() {
   const teamPairings = useSelector((state) => {
@@ -8,9 +10,9 @@ function MatchList() {
   });
 
   return (
-    <ul>
+    <ul className={styles.matchList}>
       {teamPairings.map((pairing) => (
-        <Match pairing={pairing} key={pairing.id}/>
+        <Match pairing={pairing} key={pairing.id} />
       ))}
     </ul>
   );

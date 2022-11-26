@@ -31,40 +31,46 @@ function Match(props) {
         id: props.pairing.id,
         player1: props.pairing.players[0].player,
         player2: props.pairing.players[1].player,
-        setSubmitted: true
+        setSubmitted: true,
       })
     );
   };
 
   return (
-    <li>
+    <li className={styles.match}>
       <form onSubmit={onSubmit} className={styles.form}>
-        {props.pairing.players[0].player.name}
-        {console.log(props.pairing.submitted)}
-{!props.pairing.submitted && (
-          <div>
+        <span className="align-right">
+          {props.pairing.players[0].player.name}
+        </span>
+        {!props.pairing.submitted && (
+          <>
             <input
               type="number"
               name="first"
               value={score.first}
               onChange={handleChange}
+              className="align-right"
             />{" "}
-            :
+            :{" "}
             <input
               type="number"
               name="second"
               value={score.second}
               onChange={handleChange}
             />
-          </div>
+          </>
         )}
         {props.pairing.submitted && (
-          <div>
-            <span>{score.first}</span>:<span>{score.second}</span>
-          </div>
+          <>
+            <span className="align-right">{score.first}</span>:<span className="align-left">{score.second}</span>
+          </>
         )}
-        {props.pairing.players[1].player.name}
-        {!props.pairing.submitted && <button type="submit">Submit score</button>}
+        <span className="align-left">{props.pairing.players[1].player.name}</span>
+        {!props.pairing.submitted && (
+          <button className="button" type="submit">
+            Submit score
+          </button>
+        )}
       </form>
     </li>
   );

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTeam } from "../app/teamsSlice";
 
+import styles from "./NewTeam.module.css";
+
 function NewTeam() {
   const [value, setValue] = useState("");
 
@@ -28,11 +30,12 @@ function NewTeam() {
   return (
     <form onSubmit={onSubmit}>
       <input
+        className={"input " + styles.input}
         placeholder="New team"
         onChange={(event) => setValue(event.target.value)}
         value={value}
       />
-      <button type="submit">Add</button>
+      <button className="button" type="submit">Add</button>
     </form>
   );
 }

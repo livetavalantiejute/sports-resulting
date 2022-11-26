@@ -1,3 +1,19 @@
 .form {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 4ch 1ch 4ch 1fr 1fr;
+    align-items: center;
+}
+
+.match {
+    text-align:center;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.match:last-of-type {
+    margin-bottom: 0; 
+}
+
+.match input {
+    max-width: 3ch;
 }

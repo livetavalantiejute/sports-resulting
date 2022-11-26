@@ -1,12 +1,14 @@
 import { useSelector } from "react-redux";
 
+import styles from './TeamsTable.module.css'
+
 function TeamsTable() {
   const teams = useSelector((state) => {
     return state.teams.teams;
   });
   
   return (
-    <table>
+    <table className={styles.table}>
       <thead>
         <tr>
           <th>Place</th>

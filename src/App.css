@@ -1,3 +1,57 @@
+/* VARIABLES */
+:root {
+  --padding-small: 0.25rem 0.5rem;
+  --padding-mid: 0.5rem 1rem;
+  --padding-lg: 0.5rem 2rem;
+}
+
+/* DEFAULT STYLES */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.input,
+.button {
+  border: 1px solid gray;
+  border-radius: 0.25rem;
+}
+
+.input {
+  padding: var(--padding-mid);
+}
+
+.button {
+  background-color: #f0f0f0;
+  padding: var(--padding-lg);
+}
+
+.align-right {
+  text-align: right;
+  margin-left: auto;
+}
+
+.align-left {
+  text-align: left;
+  margin-right: auto;
+}
+
+/* APP STYLING */
 .App {
-  padding: 3rem;
+  max-width: 1200px;
+  margin: 3rem auto 0 auto;
+}
+
+.teams {
+  display: flex;
+  margin-top: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }

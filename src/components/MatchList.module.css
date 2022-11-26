@@ -1,0 +1,9 @@
+.matchList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
