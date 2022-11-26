@@ -3,6 +3,7 @@
     text-align: center;
     border-collapse: collapse;
     border: 2px solid blue;
+    margin-top: 2rem;
 }
 
 .table > thead {

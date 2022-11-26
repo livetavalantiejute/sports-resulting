@@ -47,11 +47,11 @@ input[type=number] {
 .App {
   max-width: 1200px;
   margin: 3rem auto 0 auto;
+  padding: 0 2rem;
 }
 
 .teams {
   display: flex;
-  margin-top: 2rem;
   align-items: flex-start;
   flex-wrap: wrap;
 }

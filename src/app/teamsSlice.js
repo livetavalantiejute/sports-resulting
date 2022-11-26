@@ -4,9 +4,15 @@ export const teamsSlice = createSlice({
   name: "teams",
   //Initially, there are no teams and no pairings
   initialState: {
-    count: JSON.parse(localStorage.getItem('state')) ? JSON.parse(localStorage.getItem('state')).teams.count : 0,
-    teams: JSON.parse(localStorage.getItem('state')) ? JSON.parse(localStorage.getItem('state')).teams.teams : [],
-    pairings: JSON.parse(localStorage.getItem('state')) ? JSON.parse(localStorage.getItem('state')).teams.pairings : [],
+    count: JSON.parse(localStorage.getItem("state"))
+      ? JSON.parse(localStorage.getItem("state")).teams.count
+      : 0,
+    teams: JSON.parse(localStorage.getItem("state"))
+      ? JSON.parse(localStorage.getItem("state")).teams.teams
+      : [],
+    pairings: JSON.parse(localStorage.getItem("state"))
+      ? JSON.parse(localStorage.getItem("state")).teams.pairings
+      : [],
   },
   reducers: {
     //ADD TEAM
@@ -48,6 +54,7 @@ export const teamsSlice = createSlice({
                 },
                 { player: newTeam, score: 0 },
               ],
+              submitted: false,
             };
 
             state.pairings.push(newPairing);
@@ -67,7 +74,16 @@ export const teamsSlice = createSlice({
           { player: action.payload.player1, score: action.payload.scoreFirst },
           { player: action.payload.player2, score: action.payload.scoreSecond },
         ],
+        submitted: action.payload.setSubmitted,
       };
+
+      //UPDATING PAIRING FROM addTeam REDUCER
+      //Finding the pairing, made in addTeam reducer
+      let madePairingIndex = state.pairings.findIndex((existingPairing) => {
+        return existingPairing.id === pairing.id;
+      });
+
+      state.pairings[madePairingIndex] = pairing
 
       //Find played teams
       const playedTeams = state.teams.filter((team) => {
@@ -118,11 +134,11 @@ export const teamsSlice = createSlice({
       state.teams.sort((a, b) => (a.points <= b.points ? 1 : -1));
 
       //Setting submitted status on pairing
-      for (const pairing of state.pairings) {
-        if (action.payload.id === pairing.id) {
-          pairing.submitted = action.payload.setSubmitted
-        }
-      }
+      // for (const pairing of state.pairings) {
+      //   if (action.payload.id === pairing.id) {
+      //     pairing.submitted = action.payload.setSubmitted
+      //   }
+      // }
     },
   },
 });
