@@ -4,9 +4,9 @@ export const teamsSlice = createSlice({
   name: "teams",
   //Initially, there are no teams and no pairings
   initialState: {
-    count: 0,
-    teams: [],
-    pairings: [],
+    count: JSON.parse(localStorage.getItem('state')) ? JSON.parse(localStorage.getItem('state')).teams.count : 0,
+    teams: JSON.parse(localStorage.getItem('state')) ? JSON.parse(localStorage.getItem('state')).teams.teams : [],
+    pairings: JSON.parse(localStorage.getItem('state')) ? JSON.parse(localStorage.getItem('state')).teams.pairings : [],
   },
   reducers: {
     //ADD TEAM
@@ -72,7 +72,7 @@ export const teamsSlice = createSlice({
       //Find played teams
       const playedTeams = state.teams.filter((team) => {
         return pairing.players.some((playerTeam) => {
-          team["scoreTemp"] = playerTeam.score;           //add temporary key for score, used only for current pairing, resets for every pairing
+          team["scoreTemp"] = playerTeam.score; //add temporary key for score, used only for current pairing, resets for every pairing
           return playerTeam.player.id === team.id;
         });
       });
@@ -99,7 +99,7 @@ export const teamsSlice = createSlice({
           team.draw += 1;
           team.points += 1;
         });
-      //If teams with max score count is 1, team with max score is winner  
+        //If teams with max score count is 1, team with max score is winner
       } else if (teamMaxScore.length === 1) {
         playedTeams.forEach((team) => {
           if (team.id === teamMaxScore[0].id) {
@@ -109,9 +109,19 @@ export const teamsSlice = createSlice({
             team.lost += 1;
           }
         });
-      //Backup, incase something goes wrong, e.g. there are nulls in score
+        //Backup, incase something goes wrong, e.g. there are nulls in score
       } else {
         alert("Something went wrong");
+      }
+
+      //RANKING TEAMS
+      state.teams.sort((a, b) => (a.points <= b.points ? 1 : -1));
+
+      //Setting submitted status on pairing
+      for (const pairing of state.pairings) {
+        if (action.payload.id === pairing.id) {
+          pairing.submitted = action.payload.setSubmitted
+        }
       }
     },
   },
