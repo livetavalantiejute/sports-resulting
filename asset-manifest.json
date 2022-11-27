@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sports-resulting-app/static/css/main.9c3d7b31.css",
-    "main.js": "/sports-resulting-app/static/js/main.26cbfcab.js",
-    "static/js/787.0f669b5c.chunk.js": "/sports-resulting-app/static/js/787.0f669b5c.chunk.js",
-    "index.html": "/sports-resulting-app/index.html",
-    "main.9c3d7b31.css.map": "/sports-resulting-app/static/css/main.9c3d7b31.css.map",
-    "main.26cbfcab.js.map": "/sports-resulting-app/static/js/main.26cbfcab.js.map",
-    "787.0f669b5c.chunk.js.map": "/sports-resulting-app/static/js/787.0f669b5c.chunk.js.map"
+    "main.css": "/sports-resulting/static/css/main.9c3d7b31.css",
+    "main.js": "/sports-resulting/static/js/main.63da6606.js",
+    "static/js/787.0f669b5c.chunk.js": "/sports-resulting/static/js/787.0f669b5c.chunk.js",
+    "index.html": "/sports-resulting/index.html",
+    "main.9c3d7b31.css.map": "/sports-resulting/static/css/main.9c3d7b31.css.map",
+    "main.63da6606.js.map": "/sports-resulting/static/js/main.63da6606.js.map",
+    "787.0f669b5c.chunk.js.map": "/sports-resulting/static/js/787.0f669b5c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9c3d7b31.css",
-    "static/js/main.26cbfcab.js"
+    "static/js/main.63da6606.js"
   ]
 }
