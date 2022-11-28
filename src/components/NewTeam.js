@@ -28,7 +28,7 @@ function NewTeam() {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={styles.form}>
       <input
         className={"input " + styles.input}
         placeholder="New team"

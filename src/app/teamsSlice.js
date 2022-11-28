@@ -4,13 +4,13 @@ export const teamsSlice = createSlice({
   name: "teams",
   //Initially, there are no teams and no pairings
   initialState: {
-    count: JSON.parse(localStorage.getItem("state"))
+    count: localStorage.getItem("state")
       ? JSON.parse(localStorage.getItem("state")).teams.count
       : 0,
-    teams: JSON.parse(localStorage.getItem("state"))
+    teams: localStorage.getItem("state")
       ? JSON.parse(localStorage.getItem("state")).teams.teams
       : [],
-    pairings: JSON.parse(localStorage.getItem("state"))
+    pairings: localStorage.getItem("state")
       ? JSON.parse(localStorage.getItem("state")).teams.pairings
       : [],
   },
@@ -132,13 +132,6 @@ export const teamsSlice = createSlice({
 
       //RANKING TEAMS
       state.teams.sort((a, b) => (a.points <= b.points ? 1 : -1));
-
-      //Setting submitted status on pairing
-      // for (const pairing of state.pairings) {
-      //   if (action.payload.id === pairing.id) {
-      //     pairing.submitted = action.payload.setSubmitted
-      //   }
-      // }
     },
   },
 });
